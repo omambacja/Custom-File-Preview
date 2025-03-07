@@ -96,7 +96,6 @@ export default class FilePreviewModal extends LightningElement {
                     
                     console.log('response invalid');
                     // URL is not valid, stop making requests
-                    this.pageSize.pop();
                     isContinueProcess = false;
                     this.isLoading = false;
                     return;
