@@ -1,0 +1,47 @@
+<template>
+  <template if:true={showModal}>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+      <div role="dialog" tabindex="-1" aria-modal="true" class="panel slds-modal slds-fade-in-open" style="top: 100px;">
+         <div style="background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); color: #842029; border: 1px solid rgba(0, 0, 0, 0.5); border-radius: 4px; height: 50px; display: flex; align-items: center; padding-left: 10px; position: relative;top: -100px;">
+          <button class="slds-button slds-button_icon-inverse slds-modal__close slds-button_icon-small" title="Close" onclick={closeModal} style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%);">
+            <lightning-icon icon-name="utility:close" alternative-text="Close" size="small" variant="bare"></lightning-icon>
+          </button>
+        </div>    
+        <div class="modal-container slds-modal__container" style="background-color: transparent; max-height: 100vh; overflow-y: auto;">
+          <div class="slds-spinner-container slds-is-relative">
+            <template if:false={isNoPreviewAvailabe}>
+              <template if:true={isLoading}>
+                  <div class="slds-spinner-container slds-is-relative">
+                      <lightning-spinner
+                          alternative-text="Loading"
+                          size="large"
+                      ></lightning-spinner>
+                  </div>
+              </template>
+            </template>
+            <template if:true={isNoPreviewAvailabe}>
+              <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <h1 style="font-size: 50px;margin-top:-400px;color:white">No Preview Available</h1>
+                <c-zip-utility content-version-ids={contentVersionId}></c-zip-utility>
+              </div>
+            </template>
+          </div>
+          <div id="content_2362:0" class="modal-body scrollable slds-modal__content" style="background-color: transparent;">
+            <div role="dialog" tabindex="-1" class="forceContentBasePreviewPlayer forceContentModalPreviewPlayer" style="background-color: transparent;">
+              <div role="document" style="background-color: transparent;">
+                <template if:false={isNoPreviewAvailabe}>
+                  <template for:each={urlList} for:item="url" for:index="index">
+                    <div key={url} class="document-preview">
+                      <template if:false={showFrame}>
+                        <img src={url} style="margin-top: 7px; margin-bottom: 5px; border: 1px solid #ccc; background-color: white;" />
+                      </template>
+                    </div>
+                  </template>
+                </template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </template>
+</template>
